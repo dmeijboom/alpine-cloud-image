@@ -1,0 +1,51 @@
+{
+  "builders": [
+    {
+      "type": "qemu",
+      "iso_url": "https://dl-cdn.alpinelinux.org/alpine/v3.13/releases/x86_64/alpine-standard-3.13.2-x86_64.iso",
+      "iso_checksum": "sha256:4b86ecf703464c47e53655d1969b74d5d2f2f8ed4b77002fa7c510d7b8bdc554",
+      "output_directory": "output",
+      "shutdown_command": "/sbin/poweroff",
+      "disk_size": "5000M",
+      "communicator": "ssh",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "http_directory": "setup/",
+      "ssh_username": "root",
+      "ssh_password": "root",
+      "ssh_timeout": "20m",
+      "vm_name": "alpine-cloud-image",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "10s",
+      "boot_command": [
+	"root<enter><wait>",
+
+	"ifconfig eth0 up<enter>",
+	"udhcpc -i eth0<enter>",
+
+	"setup-apkrepos -1<enter>",
+
+	"wget http://{{ .HTTPIP }}:{{ .HTTPPort }}/default.answers<enter>",
+	"printf \"{{user `root_password`}}\\n{{user `root_password`}}\\ny\\n\" | setup-alpine -f ./default.answers;<enter><wait30s>",
+
+	"mount /dev/vda3 /mnt<enter>",
+	"echo 'PermitRootLogin yes' >> /mnt/etc/ssh/sshd_config<enter>",
+	"chroot /mnt apk add sudo curl<enter>",
+	"chroot /mnt apk add salt --repository=https://dl-cdn.alpinelinux.org/alpine/v3.13/community/<enter>",
+	"umount /mnt<enter>",
+
+	"reboot<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "salt-masterless",
+      "local_state_tree": "config"
+    }
+  ],
+  "variables": {
+    "root_password": "root"
+  }
+}
