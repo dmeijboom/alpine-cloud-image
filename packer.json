@@ -4,6 +4,7 @@
       "type": "qemu",
       "iso_url": "https://dl-cdn.alpinelinux.org/alpine/v3.13/releases/x86_64/alpine-standard-3.13.2-x86_64.iso",
       "iso_checksum": "sha256:4b86ecf703464c47e53655d1969b74d5d2f2f8ed4b77002fa7c510d7b8bdc554",
+      "headless": true,
       "output_directory": "output",
       "shutdown_command": "/sbin/poweroff",
       "disk_size": "5000M",
