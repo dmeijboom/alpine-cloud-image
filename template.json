@@ -9,6 +9,7 @@
       "shutdown_command": "/sbin/poweroff",
       "disk_size": "5000M",
       "communicator": "ssh",
+      "disk_compression": true,
       "format": "qcow2",
       "accelerator": "kvm",
       "http_directory": "setup/",

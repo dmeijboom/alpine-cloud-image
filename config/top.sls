@@ -2,3 +2,4 @@ base:
   '*':
     - docker
     - golang
+    - multipass
