@@ -1,5 +1,5 @@
 base:
   '*':
-    - docker
     - golang
     - multipass
+    - containers

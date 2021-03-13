@@ -1,13 +1,21 @@
-install-golang:
+golang:
   cmd:
     - names:
       - apk add --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community/ go
     - run
 
-install-mockgen:
+mockgen:
   cmd:
     - names:
       - go install github.com/golang/mock/mockgen@latest
     - run
     - require:
-        - cmd: install-golang
+        - cmd: golang
+
+gopls:
+  cmd:
+    - names:
+      - go install golang.org/x/tools/gopls@latest
+    - run
+    - require:
+      - cmd: golang

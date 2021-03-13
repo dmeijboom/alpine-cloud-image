@@ -32,5 +32,6 @@ SSHDOPTS="-c openssh"
 NTPOPTS="-c openntpd"
 
 # Use /dev/vda as a data disk
-DISKOPTS="-m sys /dev/vda"
 ROOTFS="btrfs"
+VARFS="btrfs"
+DISKOPTS="-m sys /dev/vda"
