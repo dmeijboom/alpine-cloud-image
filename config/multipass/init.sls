@@ -5,6 +5,9 @@ setup-cloud-init:
   cmd:
     - names:
       - setup-cloud-init
+      - echo "" > /etc/cloud-init-finished
+    - creates:
+      - /etc/cloud-init-finished
     - run
     - require:
         - pkg: cloud-init
@@ -20,6 +23,8 @@ fix-ssh:
   cmd:
     - names:
       - echo "UsePAM yes" >> /etc/ssh/sshd_config
+    - unless:
+      - grep "^UsePAM yes" /etc/ssh/sshd_config
     - run
 
 openssh-server-pam:

@@ -13,5 +13,7 @@ kubectl:
       - |
         curl -LO https://dl.k8s.io/release/v1.20.4/bin/linux/amd64/kubectl && \
             chmod +x kubectl && \
-            mv kubectl /bin/kubectl
+            mv kubectl /usr/bin/kubectl
+    - creates:
+      - /usr/bin/kubectl
     - run
