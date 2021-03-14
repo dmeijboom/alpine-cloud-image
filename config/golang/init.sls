@@ -27,3 +27,14 @@ gopls:
     - run
     - require:
       - cmd: golang
+
+gofumpt:
+  cmd:
+    - names:
+      - go install mvdan.cc/gofumpt@latest
+      - mv ~/go/gofumpt /usr/bin/gofumpt
+    - creates:
+      - /usr/bin/gofumpt
+    - run
+    - require:
+      - cmd: golang
